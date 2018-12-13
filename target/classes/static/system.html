@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script>
+	function findAllStudent()
+	{
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+		    if (this.readyState == 4 && this.status == 200) {
+		        obj = JSON.parse(this.responseText);
+		        var str = "";
+		        for(i = 0; i < obj.length; i++){
+		        	str += "<tr><td>"+obj[i].num+"</td><td>"+obj[i].name+"</td><td>"+obj[i].grade+"</td><td>"+obj[i].college+"</td></tr>";
+		        	};
+	        	document.getElementById("mesContent").innerHTML = str;
+		    }
+		};
+		xmlhttp.open("GET", "/admin/getAllStudent.do", true);
+		xmlhttp.send();
+	}
+	</script>
+</head>
+	<style type="text/css">
+		.left-side{ float:left;width:20%;height:500px;border:2px solid black} 
+		.content-side{ float:left;width:76%;height:500px;border:2px solid black;margin-left: 4px;} 
+		.form-control{width: 180px}
+		.nav-item{width:100%}
+	</style>
+<body>
+
+<div class="container-fluid">
+
+	<div class="left-side">
+		<!-- Nav pills -->
+	  <ul class="nav nav-pills" role="tablist">
+	    <li class="nav-item">
+	      <a class="nav-link active" data-toggle="pill" href="#read">Read</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" data-toggle="pill" href="#create">Create</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" data-toggle="pill" href="#update">Update</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" data-toggle="pill" href="#delete">Delete</a>
+	    </li>
+	  </ul>
+	</div>
+  
+	<div class="content-side">
+		<!-- Tab panes -->
+	  <div class="tab-content">
+	  
+	  <div id="read" class="container-fluid tab-pane active"><br>
+	      <h3>Read</h3>
+	      <div >
+	      	<table class="table table-bordered">
+			    <thead>
+			      <tr>
+			        <th>num</th>
+			        <th>name</th>
+			        <th>grade</th>
+			        <th>college</th>
+			      </tr>
+			    </thead>
+			    <tbody id="mesContent">
+			    </tbody>
+			</table>
+	      </div>
+		  <button type="button" onclick="findAllStudent()" class="btn btn-primary">request</button>
+	    </div>
+	  
+	    <div id="create" class="container-fluid tab-pane fade"><br>
+	      <h3>Create</h3>
+	      <form action="/admin/addStudent.do" method="post">
+			  <div class="form-group">
+			    <label for="num">num:</label>
+			    <input type="text" class="form-control" id="num" name="num" value ="123">
+			  </div>
+			  <div class="form-group">
+			    <label for="name">name:</label>
+			    <input type="text" class="form-control" id="name" name="name" value ="123">
+			  </div>
+			  <div class="form-group">
+			    <label for="grade">grade:</label>
+			    <input type="text" class="form-control" id="grade" name="grade" value ="123">
+			  </div>
+			  <div class="form-group">
+			    <label for="college">college:</label>
+			    <input type="text" class="form-control" id="college" name="college" value ="123">
+			  </div>
+			  <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+	    </div>
+	    
+	    <div id="update" class="container-fluid tab-pane fade"><br>
+	      <h3>Update</h3>
+	      <form action="/admin/updateStudent.do" method="post">
+			  <div class="form-group">
+			    <label for="num">num: (this num must exist in database)</label>
+			    <input type="text" class="form-control" id="num" name="num" value ="123">
+			  </div>
+			  <div class="form-group">
+			    <label for="name">name:</label>
+			    <input type="text" class="form-control" id="name" name="name" value ="456">
+			  </div>
+			  <div class="form-group">
+			    <label for="grade">grade:</label>
+			    <input type="text" class="form-control" id="grade" name="grade" value ="456">
+			  </div>
+			  <div class="form-group">
+			    <label for="college">college:</label>
+			    <input type="text" class="form-control" id="college" name="college" value ="456">
+			  </div>
+			  <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+	    </div>
+	    
+	    <div id="delete" class="container-fluid tab-pane fade"><br>
+	      <h3>Delete</h3>
+	      <form action="/admin/deleteStudent.do" method="post">
+			  <div class="form-group">
+			    <label for="num">num: (this num must exist in database)</label>
+			    <input type="text" class="form-control" id="num" name="num" value ="123">
+			  </div>
+			  <button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+	    </div>
+	    
+	  </div>
+	</div>
+  
+</div>
+
+</body>
+</html>
